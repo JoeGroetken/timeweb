@@ -28,6 +28,6 @@ jobs:
 
       - name: Run Makefile targets
         run: |
+          make setup
           make test
-          make run
 
