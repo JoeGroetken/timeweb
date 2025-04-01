@@ -6,22 +6,15 @@ import re
 app = Flask(__name__)
 app.secret_key = 'bvu9bvtu9[ojervnu024v0ujtbu9ruv905t4b9i5ghu0tg'
 
-def formatDate():
-    rawDate = subprocess.run(['date'], stdout=subprocess.PIPE, universal_newlines=True)
-    date = rawDate.stdout
+rawDate = subprocess.run(['date', "+%b %d, %Y, %H:%M"], stdout=subprocess.PIPE, universal_newlines=True)
+date = rawDate.stdout
 
-    dateArray = date.split(" ")
-    dateArray.pop(0)
-    dateArray.pop(3)
-    newlineRemoval = dateArray[3]
-    dateArray[3] = re.sub('\n', '', newlineRemoval)
-    hmsToHm = dateArray[2].split(":")
-    dateArray[2] = hmsToHm[0] + ":" + hmsToHm[1]
+def formatDate(time):
+	
+    time = re.sub('\n', '', date)
+    return time
 
-    returndate = dateArray[0] + " " + dateArray[1] + ", " + dateArray[3] + ", " + dateArray[2]
-    return returndate
-
-appDate = formatDate()
+appDate = formatDate(date)
 
 @app.route('/')
 def index():
