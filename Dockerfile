@@ -15,7 +15,8 @@ WORKDIR /home/developer
 
 # Git config
 COPY .profile .profile
-RUN echo "\n. .profile\n" >> .bashrc
+RUN echo "\nsource .profile\n" >> .bashrc
+#Had trouble getting the variables passed in, Connor told me to try passing it into the .bashrc
 RUN git clone https://github.com/JoeGroetken/timeweb
 RUN (cd timeweb && make setup)
 
